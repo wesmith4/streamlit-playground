@@ -1,29 +1,29 @@
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
+from streamlit.script_runner import ScriptControlException
 
-# Data imports
+# Data import
+routes = pd.read_csv('./routes.csv')
 
-airlines = pd.read_csv('./data/airlines.csv')
-airplanes = pd.read_csv('./data/airplanes.csv')
-airports = pd.read_csv('./data/airports.csv')
-routes = pd.read_csv('./data/routes.csv')
-
-
-st.write("## Airlines")
-st.dataframe(airlines)
-
-st.write('## Airplanes')
-st.dataframe(airplanes)
-
-st.write("## Airports")
-st.dataframe(airports)
-
-st.write('## Routes')
 st.dataframe(routes)
 
-airport_locations = airports[['Airport ID', 'Latitude', 'Longitude']].copy()
 
-routes['lat_beg'] = routes['Source airport ID'].apply(lambda x: airports[airports['Airport ID'] == x][['Latitude']])
+st.dataframe(routes.isna())
 
-st.write(routes)
+
+# arc_layer = pdk.Layer(
+#     "ArcLayer",
+#     data=routes[['src_Longitude','src_Latitude','dest_Longitude','dest_Latitude']],
+#     get_source_position=["src_Longitude","src_Latitude"],
+#     get_target_position=["dest_Longitude","dest_Latitude"],
+#     get_tilt=15,
+#     get_source_color=[0,255,0,40],
+#     get_target_color=[240,100,0,40]
+# )
+
+# deck = pdk.Deck(
+#     layers=[arc_layer]
+# )
+
+# st.pydeck_chart(deck)
