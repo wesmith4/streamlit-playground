@@ -1,23 +1,37 @@
+from os import openpty
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
 from streamlit.script_runner import ScriptControlException
+import numpy as np
 
 # Data import
-coords = pd.read_csv('./full_routes_data.csv')
-st.dataframe(coords)
-
-us_data = coords.loc[(coords.src_Country == "United States") & (coords.dest_Country == "United States") & (coords.Airline == "AA")]
-
-st.dataframe(us_data)
+df = pd.read_csv('./full_routes_data.csv')
+st.dataframe(df)
 
 st.write("Distinct Airlines")
-st.write(coords.Airline.unique())
+st.write(df.Airline.unique())
+
+st.write('## Filters')
+origin_countries = st.multiselect('Origin Countries',options=df.src_Country.unique())
+dest_countries = st.multiselect('Destination Countries',options=df.dest_Country.unique())
+
+st.write(origin_countries)
+
+st.write('a' in ['a','b','c'])
+
+# selectedData = df.loc[(df.src_Country in origin_countries) & (df.dest_Country in dest_countries)]
+
+# df.filter()
+
+selectedData = np.where([df.src_Country in origin_countries,df.dest_Country in dest_countries],df,-1)
+
+coords = selectedData[['src_Longitude','src_Latitude','dest_Longitude','dest_Latitude']]
 
 
 arc_layer = pdk.Layer(
     "ArcLayer",
-    data=us_data,
+    data=coords,
     get_source_position=["src_Longitude","src_Latitude"],
     get_target_position=["dest_Longitude","dest_Latitude"],
     get_tilt=15,
