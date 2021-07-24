@@ -15,8 +15,7 @@ if uploaded_file is not None:
 
     st.dataframe(df)
 
-    cols = df.columns
-    st.write(cols)
-
-
-    df[df.isna().sum(axis=1) > 0]
+    info = pd.DataFrame()
+    info['Column Names'] = df.columns
+    info['Data Types'] = df.dtypes.to_list()
+    st.write(info)
