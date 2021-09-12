@@ -1,22 +1,24 @@
 import streamlit as st
 import numpy as np
+# from handcalcs.handcalcs import handcalc
 
-st.write('## Create your transition matrix:')
+# st.write('## Create your transition matrix:')
 
-text_input = st.text_area('Transition Matrix',help="Separate entries by commas, rows by semicolons")
+# text_input = st.text_input('Transition Matrix',help="Separate entries by commas, rows by semicolons")
 
-if text_input is not None:
-    A = np.matrix(text_input)
-    st.code(A)
+# if text_input is not None:
+#     A = np.matrix(text_input)
+#     st.code(A)
+#     st.write('{} by {} transition matrix:'.format(np.shape(A)[0],np.shape(A)[1]))
 
+#     np.shape(A)
 
-    
-nrows = st.number_input('Number of rows',min_value=1,max_value=5,step=1)
-ncols = st.number_input('Number of columns',min_value=1,max_value=5,step=1)
-
-Transition_Matrix = np.zeros((nrows, ncols))
+#     # st.latex(f"{}x^2 + {b}x + {c} = 0")
 
 
-for r in range(nrows):
-    for c in range(ncols):
-        Transition_Matrix[r,c] = st.number_input(label='Val')
+# st.latex(r"""\bold{A}""")
+
+st.metric(label="Value", value=.87, delta=.01)
+
+
+st.date_input()

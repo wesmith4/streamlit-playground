@@ -35,4 +35,4 @@ for token in tokens:
 
 freq = nltk.FreqDist(clean_tokens)
 
-print(freq.items()
+print(freq.items())
