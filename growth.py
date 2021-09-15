@@ -10,6 +10,12 @@ from datetime import datetime
 
 """
 
+# Formula in latex
+
+st.latex(r'''
+\text{Future Value} = P \left( 1 + \frac{r}{n} \right) ^{nt} + \frac{\left( 1 + \frac{r}{n} \right)^{nt} - 1}{\left(\frac{r}{n}\right)}
+''')
+
 principle = st.number_input("Principle",value=1000,step=100,min_value=0)
 growth_rate = st.number_input("Growth Rate (%)",min_value=0,value=8,step=1)
 rate_var = st.number_input("Variation (% points)", value=2,min_value=0,step=1)
@@ -52,4 +58,6 @@ final_value = "${:,.2f}".format(final_year_avg.value)
 st.metric('Final Value',final_value)
 
 # st.write(final_year_avg)
+
+
 
