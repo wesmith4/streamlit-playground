@@ -4,8 +4,6 @@ import pandas as pd
 
 gm = px.data.gapminder()
 
-st.write(gm)
-
 fig = px.scatter(
     gm,
     x="gdpPercap",
@@ -20,6 +18,10 @@ fig = px.scatter(
     size_max=100,
 )
 
+"""
+# Gapminder visualization
+"""
+
 st.write(fig)
 
 exp = px.data.experiment()
@@ -33,10 +35,24 @@ exp = pd.melt(
 )
 st.write(exp)
 
-exp.experiment = exp.experiment.apply(lambda x: x.replace("experiment_", ""))
+exp.experiment = exp.experiment.apply(
+    lambda x: x.replace("experiment_", "exp_")
+)
 
 st.write(
     pd.pivot_table(
         exp, columns=["gender", "group"], index="experiment", values="result"
     )
 )
+
+fig2 = px.bar(
+    exp,
+    x="group",
+    y="result",
+    color="group",
+    facet_col="experiment",
+    facet_row="gender",
+    barmode="group",
+)
+
+st.write(fig2)
